@@ -1,0 +1,50 @@
+<div class="main-container">
+
+  <form class="form">
+
+    <mat-form-field appearance="outline" class="form-field" subscriptSizing="dynamic">
+      <mat-label>Nickname</mat-label>
+      <input type="text" matInput [formControl]="usernameFormControl">
+      <mat-error *ngIf="usernameFormControl.errors?.['min_length']">{{getMinLengthErrorMessage()}}</mat-error>
+      <mat-error *ngIf="usernameFormControl.errors?.['taken']">{{getTakenError()}}</mat-error>
+    </mat-form-field>
+
+    <fieldset class="join-fieldset">
+
+      <legend>
+        <div class="legend-title">
+          <img alt="join room" src="assets/images/join-room.svg">
+          <span>Join room</span>
+        </div>
+      </legend>
+
+      <div class="field-container">
+
+        <mat-form-field appearance="outline" class="form-field room-form-field" subscriptSizing="dynamic">
+          <mat-label>Room code</mat-label>
+          <input type="text" matInput [formControl]="roomCodeFormControl">
+          <mat-error *ngIf="roomCodeFormControl.errors?.['required']">{{getRequiredErrorMessage()}}</mat-error>
+          <mat-error *ngIf="roomCodeFormControl.errors?.['incorrect_code']">{{getCodeError()}}</mat-error>
+        </mat-form-field>
+
+      </div>
+
+      <button mat-raised-button color="primary" type="button" class="join-button" (click)="joinRoom()">
+        <i class="fa fa-circle-o-notch fa-spin" [class.visible]="!joiningRoom"></i>
+        Join
+      </button>
+
+    </fieldset>
+
+
+    <div class="field-container">
+      <button mat-fab extended color="accent" class="create-button" type="button" (click)="createRoom()">
+        <mat-icon [class.visible]="creatingRoom">meeting_room</mat-icon>
+        <i class="fa fa-circle-o-notch fa-spin" [class.visible]="!creatingRoom"></i>
+        Create room
+      </button>
+    </div>
+
+  </form>
+
+</div>

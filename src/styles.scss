@@ -1,1 +1,84 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
+html, body{
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url("assets/images/background.jpg");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 768px) {
+
+  body{
+    background-size: cover;
+  }
+
+}
+
+html, body { height: 100%; }
+
+//.mat-mdc-form-field-subscript-wrapper{
+//  display: none;
+//}
+
+$dark-primary-text: #7B1FA2;
+$light-primary-text: #42794e;
+$app-palette: (
+  50: #5e4a6b,
+  100: #61476e,
+  200: #6f4681,
+  300: #6a427c,
+  400: #753096,
+  500: #7B1FA2,
+  600: #7B1FA2,
+  700: #7B1FA2,
+  800: #7B1FA2,
+  900: #7B1FA2,
+  A100: #A6A6A6,
+  A200: #8C8C8C,
+  A400: #737373,
+  A700: #666666,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text,
+  )
+);
+
+$my-primary: mat.define-palette($app-palette);
+$my-accent: mat.define-palette($app-palette);
+
+$my-theme: mat.define-light-theme(
+    (
+      color: (
+        primary: $my-primary,
+        accent: $my-accent,
+      ),
+    )
+);
+
+.form-field {
+  @include mat.form-field-theme($my-theme);
+}
+
