@@ -1,20 +1,6 @@
-<div *ngIf="!isGame && !isOwner()" class="main-container">
 
-  <div class="spinner">
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
 
-  <span class="label">Waiting for start</span>
-  <button mat-raised-button color="warn" (click)="leaveRoom()">Leave</button>
-
-</div>
-
-<div *ngIf="!isGame && isOwner()" class="page-container">
+<div class="page-container">
 
   <header>
 
@@ -22,12 +8,15 @@
 
       <div class="user" *ngFor="let user of users">
 
-        <mat-icon color="primary">person</mat-icon>
-        <span>{{user.username}}</span>
+        <mat-icon *ngIf="isMoving(user.id)" class="actual-player">keyboard_arrow_right</mat-icon>
+        <mat-icon *ngIf="!isMoving(user.id)" color="primary">person</mat-icon>
+        <span [ngClass]="isMoving(user.id) ? 'actual-player' : 'player'">{{user.username}}</span>
 
       </div>
 
     </div>
+
+    <span class="moves">moves: {{room?.moves}}</span>
 
     <button mat-stroked-button color="warn" (click)="leaveRoom()">Leave</button>
 
@@ -37,10 +26,103 @@
 
   <div class="main-container game-container">
 
-    <div class="owner-start">
+    <div class="owner-start" *ngIf="!room?.game && isOwner()">
       <span class="room-code">{{roomCode}}</span>
-      <button mat-raised-button color="accent">Start</button>
+      <button mat-raised-button color="accent" (click)="startGame()">Start</button>
     </div>
+
+    <div class="owner-start" *ngIf="!room?.game && !isOwner()">
+      <div class="spinner">
+        <div>
+          <img src="assets/images/white_dice/1.png" alt="dice">
+        </div>
+        <div>
+          <img src="assets/images/white_dice/2.png" alt="dice">
+        </div>
+        <div>
+          <img src="assets/images/white_dice/3.png" alt="dice">
+        </div>
+        <div>
+          <img src="assets/images/white_dice/4.png" alt="dice">
+        </div>
+        <div>
+          <img src="assets/images/white_dice/5.png" alt="dice">
+        </div>
+        <div>
+          <img src="assets/images/white_dice/6.png" alt="dice">
+        </div>
+      </div>
+
+      <span class="label">Waiting for start</span>
+    </div>
+
+
+    <div class="owner-start" *ngIf="room?.game && !isOwner() && isFirstMove()">
+      <div class="spinner">
+        <div>
+          <img src="assets/images/white_dice/1.png" alt="dice">
+        </div>
+        <div>
+          <img src="assets/images/white_dice/2.png" alt="dice">
+        </div>
+        <div>
+          <img src="assets/images/white_dice/3.png" alt="dice">
+        </div>
+        <div>
+          <img src="assets/images/white_dice/4.png" alt="dice">
+        </div>
+        <div>
+          <img src="assets/images/white_dice/5.png" alt="dice">
+        </div>
+        <div>
+          <img src="assets/images/white_dice/6.png" alt="dice">
+        </div>
+      </div>
+
+      <span class="label">Waiting for first move</span>
+    </div>
+
+    <div class="owner-start" *ngIf="room?.game && isRolling">
+      <div class="spinner">
+        <div>
+          <img src="assets/images/white_dice/1.png" alt="dice">
+        </div>
+        <div>
+          <img src="assets/images/white_dice/2.png" alt="dice">
+        </div>
+        <div>
+          <img src="assets/images/white_dice/3.png" alt="dice">
+        </div>
+        <div>
+          <img src="assets/images/white_dice/4.png" alt="dice">
+        </div>
+        <div>
+          <img src="assets/images/white_dice/5.png" alt="dice">
+        </div>
+        <div>
+          <img src="assets/images/white_dice/6.png" alt="dice">
+        </div>
+      </div>
+
+      <span class="label">Rolling</span>
+    </div>
+
+
+    <div *ngIf="!isRolling && isResult">
+      <span class="result">Total: {{lastResult!.redValue + lastResult!.yellowValue}}</span>
+    </div>
+
+    <div class="dices" *ngIf="!isRolling && isResult">
+
+      <img alt="dice" src="assets/images/red_dice/{{lastResult!.redValue}}.png">
+      <img alt="dice" src="assets/images/yellow_dice/{{lastResult!.yellowValue}}.png">
+      <img alt="dice" src="assets/images/special_dice/{{lastResult!.specialValue}}.png">
+
+    </div>
+
+
+    <button mat-raised-button color="accent" class="roll-btn" *ngIf="userMove() && !isRolling && canRoll" (click)="roll()">Roll</button>
+    <button mat-raised-button color="accent" class="roll-btn" *ngIf="userMove() && !isRolling && isResult && !canRoll" (click)="nextMove()">Submit</button>
 
   </div>
 

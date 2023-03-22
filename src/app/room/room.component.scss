@@ -52,23 +52,30 @@ button{
 /*Spinner start*/
 
 .spinner {
-  width: 44px;
-  height: 44px;
+  width: 66px;
+  height: 66px;
   animation: spinner-y0fdc1 2s infinite ease;
   transform-style: preserve-3d;
   margin: 2rem;
 }
 
 .spinner > div {
-  background-color: rgba(0, 255, 34, 0.2);
   height: 100%;
   position: absolute;
   width: 100%;
-  border: 2px solid #3d695e;
+  border: .5px solid black;
+  border-radius: 7px;
+  box-shadow: #FFF 0 0 1px, #FFF 0 0 1px, #FFF 0 0 1px, #FF2D95 0 0 1px, #FF2D95 0 0 10px, #FF2D95 0 0 5px, #FF2D95 0 0 15px, #FF2D95 0 0 1px;
+}
+
+.spinner > div > img{
+  width: 66px;
+  height: 66px;
+  border-radius: 7px;
 }
 
 .spinner div:nth-of-type(1) {
-  transform: translateZ(-22px) rotateY(180deg);
+  transform: translateZ(-33px) rotateY(180deg);
 }
 
 .spinner div:nth-of-type(2) {
@@ -92,20 +99,20 @@ button{
 }
 
 .spinner div:nth-of-type(6) {
-  transform: translateZ(22px);
+  transform: translateZ(33px);
 }
 
 @keyframes spinner-y0fdc1 {
   0% {
-    transform: rotate(45deg) rotateX(-25deg) rotateY(25deg);
+    transform: rotate(45deg) rotateX(-25deg) rotateY(25deg) translateY(50px);
   }
 
   50% {
-    transform: rotate(45deg) rotateX(-385deg) rotateY(25deg);
+    transform: rotate(45deg) rotateX(-385deg) rotateY(25deg) translateX(50px);
   }
 
   100% {
-    transform: rotate(45deg) rotateX(-385deg) rotateY(385deg);
+    transform: rotate(45deg) rotateX(-385deg) rotateY(385deg) translateY(50px);
   }
 }
 
@@ -139,10 +146,10 @@ header{
   flex-direction: row;
   align-items: center;
   gap: .5rem;
+  text-transform: capitalize;
 }
 
 .user > span{
-  color: #7B1FA2;
   font-family: 'Bevan', sans-serif;
 }
 
@@ -171,3 +178,44 @@ header{
   font-family: 'Bevan', sans-serif;
   text-align: center;
 }
+
+.moves{
+  font-family: 'Calibri', sans-serif;
+  text-transform: uppercase;
+  font-size: .8rem;
+  color: #42794e;
+}
+
+.player{
+  color: #7B1FA2;
+}
+
+.actual-player{
+  color: #FF2D95;
+}
+
+.roll-btn{
+  width: 80%;
+}
+
+.result{
+  font-family: 'Bahnschrift', sans-serif;
+  font-size: 1.2rem;
+}
+
+.dices{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+  max-width: 20rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.dices img{
+  border-radius: 10px;
+  width: 7rem;
+}
+
+

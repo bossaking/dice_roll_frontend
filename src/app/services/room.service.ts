@@ -15,7 +15,7 @@ export class RoomService {
   }
 
   createRoom(newRoom: NewRoomDto): Observable<any> {
-    return this.http.post('http://localhost:8080/room', newRoom).pipe(
+    return this.http.post('http://tani-projekt.pl:8080/room', newRoom).pipe(
       map((result:any) => {
         this.saveUserId(result.userId);
         return result;
@@ -28,7 +28,7 @@ export class RoomService {
   }
 
   joinRoom(joinRoom: JoinRoomDto): Observable<any> {
-    return this.http.post('http://localhost:8080/room/join', joinRoom).pipe(
+    return this.http.post('http://tani-projekt.pl:8080/room/join', joinRoom).pipe(
       map((result:any) => {
         this.saveUserId(result.userId);
         return of(true);
@@ -45,7 +45,7 @@ export class RoomService {
 
   leaveRoom(leaveRoom: LeaveRoomDto): Observable<any> {
     this.removeUserId();
-    return this.http.post('http://localhost:8080/room/leave', leaveRoom).pipe(
+    return this.http.post('http://tani-projekt.pl:8080/room/leave', leaveRoom).pipe(
       map(() => {
         return of(true);
       }),
