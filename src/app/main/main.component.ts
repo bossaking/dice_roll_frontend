@@ -5,6 +5,7 @@ import {NewRoomDto} from "../DTO/new-room-dto";
 import {RoomService} from "../services/room.service";
 import {JoinRoomDto} from "../DTO/join-room-dto";
 import {Router} from "@angular/router";
+import {NewRoomResponse} from "../DTO/new-room-response";
 
 @Component({
   selector: 'app-main',
@@ -37,7 +38,7 @@ export class MainComponent {
       username: this.usernameFormControl.value!
     };
 
-    this.roomService.createRoom(newUser).subscribe(result => {
+    this.roomService.createRoom(newUser).subscribe((result : any) => {
       if (result === false) {
         this.inProgress = false;
         this.creatingRoom = false;
@@ -46,8 +47,8 @@ export class MainComponent {
 
       this.inProgress = false;
       this.creatingRoom = false;
-      console.log(result);
-      //TODO
+
+      this.router.navigate(['/room/' + result.code]);
 
     });
 

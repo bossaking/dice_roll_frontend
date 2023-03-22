@@ -1,4 +1,4 @@
-<div *ngIf="!isGame" class="main-container">
+<div *ngIf="!isGame && !isOwner()" class="main-container">
 
   <div class="spinner">
     <div></div>
@@ -10,6 +10,38 @@
   </div>
 
   <span class="label">Waiting for start</span>
-  <button mat-raised-button color="warn">Leave</button>
+  <button mat-raised-button color="warn" (click)="leaveRoom()">Leave</button>
+
+</div>
+
+<div *ngIf="!isGame && isOwner()" class="page-container">
+
+  <header>
+
+    <div class="users-container">
+
+      <div class="user" *ngFor="let user of users">
+
+        <mat-icon color="primary">person</mat-icon>
+        <span>{{user.username}}</span>
+
+      </div>
+
+    </div>
+
+    <button mat-stroked-button color="warn" (click)="leaveRoom()">Leave</button>
+
+  </header>
+
+  <h1 class="animate__animated notification" *ngIf="notificationMessage !== null">{{notificationMessage}}</h1>
+
+  <div class="main-container game-container">
+
+    <div class="owner-start">
+      <span class="room-code">{{roomCode}}</span>
+      <button mat-raised-button color="accent">Start</button>
+    </div>
+
+  </div>
 
 </div>
